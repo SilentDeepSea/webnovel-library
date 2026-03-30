@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Webnovel Library</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/umd/lucide.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         
@@ -21,7 +21,6 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        /* Premium Frosted Glass */
         .glass-card {
             background: rgba(15, 15, 22, 0.6);
             backdrop-filter: blur(24px);
@@ -51,7 +50,6 @@
             transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Hide Scrollbars */
         ::-webkit-scrollbar { display: none; }
         * { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -59,7 +57,6 @@
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
 
-        /* Animations */
         .slide-in { animation: slideIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         .slide-out { animation: slideOut 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
@@ -84,10 +81,8 @@
 </head>
 <body class="h-screen flex flex-col selection:bg-[#ff1b6b]/30">
 
-    <!-- ================= MAIN LIBRARY SCREEN ================= -->
     <div id="main-screen" class="flex-1 flex flex-col h-full overflow-hidden relative z-0">
         
-        <!-- Header -->
         <header class="px-6 pt-12 pb-4 flex justify-between items-end">
             <div>
                 <div class="flex items-center gap-2 mb-1">
@@ -108,7 +103,6 @@
             </div>
         </header>
 
-        <!-- Search Bar -->
         <div class="px-6 mb-4">
             <div class="glass-card rounded-2xl p-1 flex items-center focus-within:border-[#ff1b6b]/50 focus-within:shadow-[0_0_20px_rgba(255,27,107,0.15)] transition-all">
                 <div class="pl-4 pr-2"><i data-lucide="search" class="w-5 h-5 text-gray-500"></i></div>
@@ -119,7 +113,6 @@
             </div>
         </div>
 
-        <!-- Swipeable Tabs -->
         <div class="pl-6 mb-2 overflow-x-auto tab-scroll-mask">
             <div class="flex gap-3 pb-2 w-max pr-6">
                 <button id="tab-recent" onclick="window.switchTab('recent')" class="px-5 py-3 rounded-2xl font-bold text-sm flex items-center gap-2 transition-all bg-gradient-to-r from-[#ff1b6b] to-[#e11d48] text-white shadow-[0_4px_20px_rgba(225,29,72,0.4)]">
@@ -141,21 +134,16 @@
             </div>
         </div>
 
-        <!-- Scrollable List -->
         <main class="flex-1 overflow-y-auto px-6 pb-32 pt-2 space-y-3.5 relative" id="novel-list">
-            <!-- Loading State -->
             <div id="loading-state" class="absolute inset-0 flex flex-col items-center justify-center pt-20">
                 <i data-lucide="loader-2" class="w-10 h-10 text-[#ff1b6b] animate-spin mb-4"></i>
                 <p class="text-sm font-bold text-gray-500 uppercase tracking-widest">Waking Up Database</p>
             </div>
         </main>
 
-        <!-- Bottom Player Bar -->
         <div class="fixed bottom-0 w-full z-40 hidden" id="cr-bar-container">
             <div class="glass-nav flex items-center p-3 px-5 gap-4 shadow-[0_-10px_40px_rgba(0,0,0,0.8)] pb-safe cursor-pointer hover:bg-[#13131c] transition-colors" onclick="window.openCurrentlyReading()">
-                <div id="cr-cover-box" class="w-12 h-12 rounded-xl overflow-hidden relative shadow-lg shadow-black/50 border border-white/10 bg-slate-800">
-                     <!-- Cover injected dynamically -->
-                </div>
+                <div id="cr-cover-box" class="w-12 h-12 rounded-xl overflow-hidden relative shadow-lg shadow-black/50 border border-white/10 bg-slate-800"></div>
                 <div class="flex-1 overflow-hidden">
                     <h4 id="cr-title" class="text-sm font-bold text-white truncate tracking-wide">Select a Novel</h4>
                     <p id="cr-status" class="text-[11px] text-[#ff1b6b] font-bold uppercase tracking-widest mt-0.5 truncate">Resume Reading</p>
@@ -167,16 +155,12 @@
         </div>
     </div>
 
-    <!-- ================= DETAILS SCREEN ================= -->
     <div id="details-screen" class="fixed inset-0 z-50 bg-[#07070a] hidden flex-col h-full w-full transform translate-x-full">
-        
-        <!-- Blurred Background Cover -->
         <div class="absolute top-0 left-0 w-full h-96 opacity-30 transform scale-110 pointer-events-none" style="filter: blur(40px);">
             <div id="details-bg" class="w-full h-full bg-cover bg-center transition-all duration-300"></div>
         </div>
         <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-transparent via-[#07070a]/90 to-[#07070a] pointer-events-none"></div>
 
-        <!-- Top Nav -->
         <div class="relative z-10 flex items-center justify-between px-5 pt-12 pb-2">
             <button onclick="window.closeDetails()" class="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white active:scale-90 transition-all">
                 <i data-lucide="chevron-down" class="w-6 h-6 rotate-90"></i>
@@ -188,11 +172,8 @@
         </div>
 
         <main class="relative z-10 flex-1 overflow-y-auto px-6 pb-12">
-            <!-- Cover & Title -->
             <div class="flex flex-col items-center mt-2 mb-6 text-center">
-                <div id="details-cover-box" class="w-36 h-52 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden border border-white/10 relative mb-5 transition-all duration-300">
-                    <!-- Image injected here -->
-                </div>
+                <div id="details-cover-box" class="w-36 h-52 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden border border-white/10 relative mb-5 transition-all duration-300"></div>
                 <h2 class="text-2xl font-black text-white leading-tight mb-2 px-2 drop-shadow-md" id="details-title">Novel Title</h2>
                 <div class="inline-flex items-center gap-2 text-xs font-bold bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-gray-300">
                     <i data-lucide="layers" class="w-3.5 h-3.5 text-[#ff1b6b]"></i>
@@ -200,22 +181,18 @@
                 </div>
             </div>
 
-            <!-- STATUS SELECTOR -->
             <div class="flex gap-2 bg-black/40 border border-white/5 p-1.5 rounded-2xl mb-6 shadow-inner">
-                <button onclick="window.changeNovelStatus('recent')" id="det-stat-recent" class="flex-1 py-2 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all bg-[#ff1b6b] text-white shadow-md">Reading</button>
+                <button onclick="window.changeNovelStatus('recent')" id="det-stat-recent" class="flex-1 py-2 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all text-gray-400 hover:text-white">Reading</button>
                 <button onclick="window.changeNovelStatus('bookmark')" id="det-stat-bookmark" class="flex-1 py-2 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all text-gray-400 hover:text-white">Bookmark</button>
                 <button onclick="window.changeNovelStatus('completed')" id="det-stat-completed" class="flex-1 py-2 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all text-gray-400 hover:text-white">Done</button>
                 <button onclick="window.changeNovelStatus('dropped')" id="det-stat-dropped" class="flex-1 py-2 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all text-gray-400 hover:text-white">Drop</button>
             </div>
 
-            <!-- Chapter Updater Card -->
             <div class="glass-card rounded-3xl p-5 mb-8 border-white/10 relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ff1b6b] to-transparent opacity-50"></div>
-                
                 <h3 class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] flex items-center gap-1.5 mb-4">
                     <i data-lucide="target" class="w-3.5 h-3.5 text-[#ff1b6b]"></i> Update Progress
                 </h3>
-                
                 <div class="flex gap-3 mb-4 h-16">
                     <div class="relative flex-1 h-full bg-black/50 border border-white/5 rounded-2xl focus-within:border-[#ff1b6b]/50 focus-within:bg-black/80 transition-colors flex items-center px-4 shadow-inner">
                         <i data-lucide="book-open" class="w-5 h-5 text-gray-500"></i>
@@ -225,7 +202,6 @@
                         <i data-lucide="check" class="w-7 h-7"></i>
                     </button>
                 </div>
-
                 <div class="flex gap-2">
                     <button onclick="window.addChapter(1)" class="flex-1 py-3.5 rounded-xl bg-white/5 border border-white/5 font-black text-sm active:scale-95 transition-all text-gray-200 shadow-sm hover:bg-white/10">+1</button>
                     <button onclick="window.addChapter(5)" class="flex-1 py-3.5 rounded-xl bg-white/5 border border-white/5 font-black text-sm active:scale-95 transition-all text-gray-200 shadow-sm hover:bg-white/10">+5</button>
@@ -233,53 +209,25 @@
                 </div>
             </div>
 
-            <!-- AI Companion Card -->
-            <div class="glass-card rounded-3xl p-5 mb-8 border-indigo-500/10 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-30"></div>
-                <h3 class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] flex items-center gap-1.5 mb-4">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i> AI Companion
-                </h3>
-                
-                <div class="flex gap-3 mb-4">
-                    <button onclick="window.recommendSimilar()" class="flex-1 py-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 font-bold text-xs active:scale-95 transition-all text-indigo-300 shadow-[0_0_15px_rgba(99,102,241,0.1)] hover:bg-indigo-500/20 flex flex-col items-center gap-1.5">
-                        <span class="text-lg">✨</span> Similar Novels
-                    </button>
-                    <button onclick="window.summarizePremise()" class="flex-1 py-3 rounded-xl bg-purple-500/10 border border-purple-500/20 font-bold text-xs active:scale-95 transition-all text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.1)] hover:bg-purple-500/20 flex flex-col items-center gap-1.5">
-                        <span class="text-lg">✨</span> Story Premise
-                    </button>
-                </div>
-
-                <div id="ai-response-box" class="hidden bg-black/40 border border-white/5 rounded-2xl p-4 text-sm text-gray-300 leading-relaxed">
-                    <!-- AI Content Injected Here -->
-                </div>
-            </div>
-
-            <!-- Timeline -->
             <div>
                 <h3 class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-5 ml-1 flex items-center gap-1.5">
                     <i data-lucide="activity" class="w-3.5 h-3.5"></i> History Log
                 </h3>
-                <div id="details-timeline" class="pl-2 space-y-0 relative border-l-2 border-gray-800 ml-2 pb-6">
-                    <!-- History Injected Here -->
-                </div>
+                <div id="details-timeline" class="pl-2 space-y-0 relative border-l-2 border-gray-800 ml-2 pb-6"></div>
             </div>
         </main>
     </div>
 
-    <!-- ================= ADD NOVEL MODAL ================= -->
     <div id="add-modal" class="fixed inset-0 z-[200] bg-black/80 hidden items-center justify-center opacity-0 transition-all duration-200 backdrop-blur-sm">
         <div class="glass-card w-[90%] max-w-[380px] rounded-[24px] p-6 shadow-2xl relative" onclick="event.stopPropagation()">
             <button onclick="window.closeAddModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
-            
             <h2 class="text-xl font-black text-white mb-1">Add Novel</h2>
             <p class="text-xs text-gray-400 font-medium mb-5">Expand your library.</p>
-            
             <div class="space-y-4">
                 <div>
                     <label class="text-[10px] uppercase font-bold text-gray-500 tracking-widest ml-1">Title <span class="text-[#ff1b6b]">*</span></label>
                     <input type="text" id="add-title" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 mt-1 text-sm text-white font-bold focus:border-[#ff1b6b] focus:outline-none transition-colors shadow-inner" placeholder="e.g. Shadow Slave">
                 </div>
-                
                 <div class="flex gap-3">
                     <div class="flex-1">
                         <label class="text-[10px] uppercase font-bold text-gray-500 tracking-widest ml-1">Total Ch</label>
@@ -290,12 +238,10 @@
                         <input type="number" id="add-cur" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 mt-1 text-sm text-white font-bold focus:border-[#ff1b6b] focus:outline-none transition-colors shadow-inner" placeholder="0">
                     </div>
                 </div>
-
                 <div>
                     <label class="text-[10px] uppercase font-bold text-gray-500 tracking-widest ml-1">Cover Image URL</label>
                     <input type="text" id="add-cover" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 mt-1 text-sm text-white font-bold focus:border-[#ff1b6b] focus:outline-none transition-colors shadow-inner" placeholder="(Optional) https://...">
                 </div>
-
                 <div>
                     <label class="text-[10px] uppercase font-bold text-gray-500 tracking-widest ml-1 mb-2 block">Status Category</label>
                     <div class="grid grid-cols-2 gap-2">
@@ -305,7 +251,6 @@
                         <button id="sel-dropped" onclick="window.selectAddTab('dropped')" class="py-2.5 text-xs font-bold rounded-xl bg-black/40 border border-white/10 text-gray-400 hover:text-white transition-all uppercase tracking-wide">Drop</button>
                     </div>
                 </div>
-
                 <button onclick="window.submitAddNovel()" class="w-full mt-4 bg-gradient-to-r from-[#ff1b6b] to-[#e11d48] text-white font-bold py-3.5 rounded-xl shadow-[0_4px_15px_rgba(225,29,72,0.4)] active:scale-95 transition-transform">
                     Save to Library
                 </button>
@@ -313,15 +258,13 @@
         </div>
     </div>
 
-    <!-- ================= REMOVE CONFIRM MODAL ================= -->
     <div id="delete-modal" class="fixed inset-0 z-[250] bg-black/80 hidden items-center justify-center opacity-0 transition-all duration-200 backdrop-blur-sm">
         <div class="glass-card w-[85%] max-w-sm rounded-[24px] p-6 shadow-2xl text-center" onclick="event.stopPropagation()">
             <div class="w-14 h-14 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.2)]">
-                <i data-lucide="alert-triangle" class="w-7 h-7"></i>
+                <i data-lucide="trash-2" class="w-7 h-7"></i>
             </div>
             <h2 class="text-xl font-black text-white mb-2">Remove Novel?</h2>
             <p class="text-sm text-gray-400 mb-6 leading-relaxed">Are you sure you want to permanently delete <span id="del-modal-title" class="text-white font-bold"></span> from your library?</p>
-            
             <div class="flex gap-3">
                 <button onclick="window.closeDeleteModal()" class="flex-1 py-3.5 rounded-xl bg-white/5 font-bold text-sm text-gray-300 hover:bg-white/10 transition-colors">Cancel</button>
                 <button id="confirm-del-btn" class="flex-1 py-3.5 rounded-xl bg-red-500 font-bold text-sm text-white shadow-[0_0_15px_rgba(239,68,68,0.4)] active:scale-95 transition-all">Remove</button>
@@ -329,38 +272,46 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toast" class="fixed top-12 left-1/2 -translate-x-1/2 z-[300] bg-[#1a1a24] border border-[#ff1b6b]/40 text-white px-5 py-3.5 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.9)] flex items-center gap-3 font-bold text-sm opacity-0 hidden pointer-events-none w-max">
         <div class="bg-[#ff1b6b]/20 rounded-full p-1"><i data-lucide="check-circle-2" class="w-4 h-4 text-[#ff1b6b]"></i></div>
         <span id="toast-msg">Success</span>
     </div>
 
-    <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
         // GLOBALS
         window.appState = { novels: {}, lastRead: "" };
         window.currentTab = 'recent';
         window.currentlyEditingId = null;
         window.addTabSelection = 'recent';
-        const STORAGE_KEY = 'webnovel_tracker_v_offline_final_v2';
+        // Unique key to FORCE wipe any old broken cache
+        const STORAGE_KEY = 'webnovel_tracker_master_final_v12';
 
         // UTILS
-        window.getNovelId = (title) => encodeURIComponent(title.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase());
         
+        // CRASH-PROOF WRAPPER: Ensures the app works perfectly even if adblockers block the icons
+        window.refreshIcons = function() {
+            try {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            } catch (e) {
+                console.warn("Icons blocked by browser, continuing safely.");
+            }
+        };
+
+        window.getNovelId = (title) => encodeURIComponent(title.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase());
         window.getInitials = (title) => {
             let words = title.replace(/[^a-zA-Z\s]/g, '').trim().split(' ');
             if (words.length === 1 && words[0].length > 1) return words[0].substring(0, 2).toUpperCase();
             if (words.length > 1) return (words[0][0] + words[words.length-1][0]).toUpperCase();
             return 'N';
         };
-
         window.getColorClass = (title) => {
             const bgCols = ['bg-red-900', 'bg-blue-900', 'bg-emerald-900', 'bg-purple-900', 'bg-orange-900', 'bg-teal-900', 'bg-indigo-900', 'bg-rose-900', 'bg-cyan-900', 'bg-fuchsia-900'];
             let hash = 0;
             for (let i = 0; i < title.length; i++) hash = title.charCodeAt(i) + ((hash << 5) - hash);
             return bgCols[Math.abs(hash) % bgCols.length];
         };
-
         window.showToast = function(msg) {
             const toast = document.getElementById('toast');
             document.getElementById('toast-msg').innerText = msg;
@@ -369,13 +320,13 @@
             toast.classList.add('toast-show');
         };
 
-        // ================= DYNAMIC FIREBASE LOADER =================
-        // This isolates the module import so if it crashes (on local file URLs), it doesn't break the entire app.
+        // ================= DYNAMIC FIREBASE / LOCAL ENGINE =================
+        const isLocalFile = window.location.protocol === 'file:' || window.location.protocol === 'content:';
         const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
         async function startApp() {
-            if (Object.keys(firebaseConfig).length > 0) {
+            if (!isLocalFile && Object.keys(firebaseConfig).length > 0) {
                 try {
                     const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js");
                     const { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js");
@@ -395,16 +346,22 @@
                     onAuthStateChanged(auth, (u) => {
                         firebaseUser = u;
                         if (firebaseUser) {
-                            const docRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'library', 'data_v5');
+                            const docRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'library', 'data_v12');
                             onSnapshot(docRef, (docSnap) => {
                                 document.getElementById('loading-state').classList.add('hidden');
                                 document.getElementById('sync-icon').classList.add('text-green-400');
                                 document.getElementById('sync-icon').setAttribute('data-lucide', 'cloud-check');
                                 document.getElementById('storage-mode-text').innerText = "Cloud Library";
-                                lucide.createIcons();
+                                window.refreshIcons();
 
                                 if (docSnap.exists()) {
-                                    window.appState = docSnap.data();
+                                    const data = docSnap.data();
+                                    if (data && data.novels && Object.keys(data.novels).length > 0) {
+                                        window.appState = data;
+                                    } else {
+                                        window.loadDefaultLibrary(); 
+                                        window.saveToCloud();
+                                    }
                                 } else {
                                     window.loadDefaultLibrary(); 
                                     window.saveToCloud();
@@ -419,44 +376,49 @@
                         const icon = document.getElementById('sync-icon');
                         icon.classList.add('animate-pulse', 'text-yellow-400');
                         icon.setAttribute('data-lucide', 'cloud-upload');
-                        lucide.createIcons();
+                        window.refreshIcons();
 
-                        const docRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'library', 'data_v5');
+                        const docRef = doc(db, 'artifacts', appId, 'users', firebaseUser.uid, 'library', 'data_v12');
                         setDoc(docRef, window.appState).then(() => {
                             icon.classList.remove('animate-pulse', 'text-yellow-400');
                             icon.classList.add('text-green-400');
                             icon.setAttribute('data-lucide', 'cloud-check');
-                            lucide.createIcons();
+                            window.refreshIcons();
                         }).catch(e => { console.error("Save error", e); window.saveStorageLocal(); });
                     };
-                    
-                    return; // Successfully connected to cloud!
+                    return; 
                 } catch (e) {
-                    console.warn("Module load blocked. Running entirely offline.", e);
+                    console.warn("Module load blocked. Running entirely offline.");
                 }
             }
-            
-            // If config is empty or Modules failed (like ZArchiver), run totally locally
             fallbackToMemory();
         }
 
         function fallbackToMemory() {
-            document.getElementById('loading-state').classList.add('hidden');
-            document.getElementById('sync-icon').setAttribute('data-lucide', 'hard-drive');
-            document.getElementById('sync-icon').classList.add('text-blue-400');
-            document.getElementById('storage-mode-text').innerText = "Local Library";
-            lucide.createIcons();
+            try {
+                document.getElementById('loading-state').classList.add('hidden');
+                document.getElementById('sync-icon').setAttribute('data-lucide', 'hard-drive');
+                document.getElementById('sync-icon').classList.add('text-blue-400');
+                document.getElementById('storage-mode-text').innerText = "Local Library";
+                window.refreshIcons();
+            } catch(e) {}
             
             try {
                 const data = localStorage.getItem(STORAGE_KEY);
+                let loadedValidData = false;
                 if(data) {
-                    window.appState = JSON.parse(data);
-                } else {
+                    const parsed = JSON.parse(data);
+                    if (parsed && parsed.novels && Object.keys(parsed.novels).length > 0) {
+                        window.appState = parsed;
+                        loadedValidData = true;
+                    }
+                }
+                if (!loadedValidData) {
                     window.loadDefaultLibrary();
                     window.saveStorageLocal();
                 }
             } catch(e) {
-                console.warn("localStorage restricted. Using RAM only.");
+                window.appState = { novels: {}, lastRead: "" };
                 window.loadDefaultLibrary();
             }
             
@@ -465,29 +427,38 @@
             window.saveToCloud = function() {
                 window.saveStorageLocal();
                 const icon = document.getElementById('sync-icon');
-                icon.classList.add('animate-pulse', 'text-blue-300');
-                setTimeout(() => icon.classList.remove('animate-pulse', 'text-blue-300'), 500);
+                if (icon) {
+                    icon.classList.add('animate-pulse', 'text-blue-300');
+                    setTimeout(() => icon.classList.remove('animate-pulse', 'text-blue-300'), 500);
+                }
             };
         }
 
         window.saveStorageLocal = function() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(window.appState));
-            } catch(e) {}
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(window.appState)); } catch(e) {}
+        };
+        
+        // Manual Force Reset Function
+        window.forceReset = function() {
+            window.loadDefaultLibrary();
+            window.saveToCloud();
+            window.updateUI();
+            window.showToast("Library Restored!");
         };
 
         // Initialize!
-        startApp();
+        setTimeout(startApp, 50);
 
         // ================= UI RENDER =================
         window.updateUI = function() {
             const term = document.getElementById('search-input').value.toLowerCase();
             const listContainer = document.getElementById('novel-list');
             
+            if (!window.appState || !window.appState.novels) return;
+
             let filtered = Object.values(window.appState.novels).filter(n => n.status === window.currentTab);
             if (term) filtered = filtered.filter(n => n.title.toLowerCase().includes(term));
             
-            // Sort by history dates
             filtered.sort((a, b) => {
                 if (a.history && b.history && a.history.length > 0 && b.history.length > 0) {
                     return new Date(b.history[0].date) - new Date(a.history[0].date);
@@ -495,31 +466,28 @@
                 return 0;
             });
 
-            // Update Badges
             const counts = { recent: 0, bookmark: 0, completed: 0, dropped: 0 };
             Object.values(window.appState.novels).forEach(n => { if(counts[n.status] !== undefined) counts[n.status]++; });
             
-            document.getElementById('total-count').innerText = counts[window.currentTab];
-            document.getElementById('recent-badge').innerText = counts.recent;
-            document.getElementById('bookmark-badge').innerText = counts.bookmark;
-            document.getElementById('completed-badge').innerText = counts.completed;
-            document.getElementById('dropped-badge').innerText = counts.dropped;
+            document.getElementById('total-count').innerText = counts[window.currentTab] || 0;
+            document.getElementById('recent-badge').innerText = counts.recent || 0;
+            document.getElementById('bookmark-badge').innerText = counts.bookmark || 0;
+            document.getElementById('completed-badge').innerText = counts.completed || 0;
+            document.getElementById('dropped-badge').innerText = counts.dropped || 0;
             
             if (filtered.length === 0) {
                 listContainer.innerHTML = `
                     <div class="text-center text-gray-500 mt-24 flex flex-col items-center">
                         <i data-lucide="ghost" class="w-14 h-14 opacity-20 mb-4 text-[#ff1b6b]"></i> 
-                        <span class="font-bold tracking-widest uppercase text-xs">Nothing Here</span>
-                        <p class="text-[10px] mt-2 opacity-50">Click + to add a novel.</p>
+                        <span class="font-bold tracking-widest uppercase text-xs mb-4">Nothing Here</span>
+                        <button onclick="window.forceReset()" class="px-5 py-2.5 bg-[#ff1b6b]/10 text-[#ff1b6b] rounded-xl font-bold text-xs border border-[#ff1b6b]/20 active:scale-95 transition-all shadow-sm">Force Restore Library</button>
                     </div>`;
             } else {
                 let htmlStr = '';
                 filtered.forEach(novel => {
                     let percent = novel.tot > 0 ? Math.min(100, (novel.cur / novel.tot) * 100) : (novel.cur > 0 ? 100 : 0);
-                    
                     let ringCol = 'border-white/5 shadow-black/50';
                     let pbCol = 'bg-gradient-to-r from-[#ff1b6b] to-[#ff4582] shadow-[0_0_10px_rgba(255,27,107,0.5)]';
-                    
                     if(novel.status === 'completed') { ringCol = 'border-green-500/30 shadow-green-500/20'; pbCol = 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]'; }
                     if(novel.status === 'dropped') { ringCol = 'border-gray-500/30 shadow-gray-500/20'; pbCol = 'bg-gray-500'; }
 
@@ -549,15 +517,13 @@
                 });
                 listContainer.innerHTML = htmlStr;
             }
-
             window.updateCurrentlyReadingBar();
-            lucide.createIcons();
+            window.refreshIcons();
         };
 
         window.switchTab = function(target) {
             window.currentTab = target;
             const tabs = ['recent', 'bookmark', 'completed', 'dropped'];
-            
             tabs.forEach(t => {
                 const btn = document.getElementById(`tab-${t}`);
                 const badge = document.getElementById(`${t}-badge`);
@@ -569,7 +535,6 @@
                     badge.className = "bg-black/50 px-2 py-0.5 rounded-full text-[10px] text-gray-400";
                 }
             });
-            
             document.getElementById('search-input').value = '';
             document.getElementById('clear-search').classList.add('hidden');
             window.updateUI();
@@ -584,12 +549,8 @@
             document.getElementById('details-input').value = novel.cur;
             document.getElementById('details-total').innerText = novel.tot > 0 ? `${novel.tot} Chapters` : 'Ongoing';
             
-            const aiBox = document.getElementById('ai-response-box');
-            if (aiBox) aiBox.classList.add('hidden');
-            
             const coverBox = document.getElementById('details-cover-box');
             const bg = document.getElementById('details-bg');
-            
             const fallbackDiv = `<div style="display:${novel.cover ? 'none' : 'flex'}" class="absolute inset-0 items-center justify-center font-black text-4xl text-white/50 tracking-widest bg-gradient-to-br from-white/10 to-transparent">${window.getInitials(novel.title)}</div>`;
             const fadeLayer = `<div class="absolute inset-0 bg-gradient-to-t from-[#07070a] via-transparent to-transparent opacity-80 z-20 pointer-events-none"></div>`;
             const coverHTML = novel.cover ? `<img src="${novel.cover}" class="absolute inset-0 w-full h-full object-cover z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : "";
@@ -608,11 +569,10 @@
             });
 
             window.renderHistory(novel.history);
-            
             const detailsView = document.getElementById('details-screen');
             detailsView.classList.remove('hidden', 'slide-out');
             detailsView.classList.add('flex', 'slide-in');
-            lucide.createIcons();
+            window.refreshIcons();
         };
 
         window.closeDetails = function() {
@@ -627,14 +587,10 @@
             if (!window.currentlyEditingId) return;
             const novel = window.appState.novels[window.currentlyEditingId];
             novel.status = newStatus;
-            
             ['recent', 'bookmark', 'completed', 'dropped'].forEach(s => {
                 const btn = document.getElementById(`det-stat-${s}`);
-                btn.className = s === newStatus 
-                    ? "flex-1 py-2 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all bg-[#ff1b6b] text-white shadow-md"
-                    : "flex-1 py-2 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all text-gray-400 hover:text-white border border-white/5";
+                btn.className = s === newStatus ? "flex-1 py-2 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all bg-[#ff1b6b] text-white shadow-md" : "flex-1 py-2 text-[11px] font-bold uppercase tracking-wider rounded-xl transition-all text-gray-400 hover:text-white border border-white/5";
             });
-
             window.saveToCloud();
             window.updateUI();
             window.showToast("Status Moved");
@@ -642,28 +598,23 @@
 
         window.addChapter = function(amount) {
             const input = document.getElementById('details-input');
-            const currentVal = parseInt(input.value, 10) || 0;
-            input.value = currentVal + amount;
+            input.value = (parseInt(input.value, 10) || 0) + amount;
             window.saveProgress();
         };
 
         window.saveProgress = function() {
             if (!window.currentlyEditingId) return;
             const novel = window.appState.novels[window.currentlyEditingId];
-            const inputVal = document.getElementById('details-input').value;
-            const newVal = inputVal === "" ? 0 : parseInt(inputVal, 10);
+            const newVal = parseInt(document.getElementById('details-input').value, 10) || 0;
 
-            if (!isNaN(newVal) && newVal >= 0) {
+            if (newVal >= 0) {
                 if(novel.cur !== newVal) {
                     const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute:'2-digit'});
                     if (!novel.history) novel.history = [];
-                    if (novel.history.length === 0 || novel.history[0].ch !== newVal) {
-                        novel.history.unshift({ ch: newVal, date: date });
-                    }
+                    if (novel.history.length === 0 || novel.history[0].ch !== newVal) novel.history.unshift({ ch: newVal, date: date });
                 }
                 novel.cur = newVal;
                 window.appState.lastRead = window.currentlyEditingId;
-                
                 window.saveToCloud();
                 window.renderHistory(novel.history);
                 window.updateUI(); 
@@ -674,411 +625,265 @@
         window.renderHistory = function(history) {
             const container = document.getElementById('details-timeline');
             if(!history || history.length === 0) {
-                container.innerHTML = `
-                <div class="glass-card border border-white/5 rounded-2xl p-6 text-center mt-4">
-                    <i data-lucide="footprints" class="w-8 h-8 text-gray-600 mx-auto mb-2"></i>
-                    <div class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">No history recorded</div>
-                </div>`;
-                lucide.createIcons(); return;
+                container.innerHTML = `<div class="glass-card border border-white/5 rounded-2xl p-6 text-center mt-4"><i data-lucide="footprints" class="w-8 h-8 text-gray-600 mx-auto mb-2"></i><div class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">No history recorded</div></div>`;
+                window.refreshIcons(); return;
             }
-
             let html = '<div class="relative border-l-2 border-gray-800/80 ml-2 space-y-7 mt-4 pb-4">';
             history.forEach((h, i) => {
                 const isFirst = i === 0;
                 const dotCol = isFirst ? 'bg-[#ff1b6b] shadow-[0_0_10px_#ff1b6b]' : 'bg-gray-700';
                 const textCol = isFirst ? 'text-white' : 'text-gray-400';
                 const cardGlow = isFirst ? 'bg-white/5 border-[#ff1b6b]/30 shadow-[0_4px_20px_rgba(255,27,107,0.1)]' : 'border-white/5 opacity-80';
-                html += `
-                    <div class="relative pl-6">
-                        <div class="absolute w-3 h-3 rounded-full ${dotCol} -left-[7px] top-[14px] border-2 border-[#07070a]"></div>
-                        <div class="glass-card rounded-2xl p-4 flex justify-between items-center ${cardGlow}">
-                            <span class="font-black ${textCol} text-sm">Chapter ${h.ch}</span>
-                            <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">${h.date}</span>
-                        </div>
-                    </div>
-                `;
+                html += `<div class="relative pl-6"><div class="absolute w-3 h-3 rounded-full ${dotCol} -left-[7px] top-[14px] border-2 border-[#07070a]"></div><div class="glass-card rounded-2xl p-4 flex justify-between items-center ${cardGlow}"><span class="font-black ${textCol} text-sm">Chapter ${h.ch}</span><span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">${h.date}</span></div></div>`;
             });
-            html += '</div>';
-            container.innerHTML = html;
+            container.innerHTML = html + '</div>';
+            window.refreshIcons();
         };
 
-        // ================= BOTTOM PLAYER =================
-        window.updateCurrentlyReadingBar = function() {
-            const bar = document.getElementById('cr-bar-container');
-            const lastId = window.appState.lastRead;
-            const novel = window.appState.novels[lastId];
-            
-            if (!novel) {
-                bar.classList.add('hidden');
-                return;
-            }
-            
-            bar.classList.remove('hidden');
-            document.getElementById('cr-title').innerText = novel.title;
-            document.getElementById('cr-status').innerText = `Ch ${novel.cur} • Resume`;
-            
-            const coverBox = document.getElementById('cr-cover-box');
-            
-            const fallbackDiv = `<div style="display:${novel.cover ? 'none' : 'flex'}" class="absolute inset-0 items-center justify-center font-black text-xs text-white/50 tracking-widest bg-gradient-to-br from-white/10 to-transparent">${window.getInitials(novel.title)}</div>`;
-            const coverHTML = novel.cover ? `<img src="${novel.cover}" class="absolute inset-0 w-full h-full object-cover z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : "";
-
-            coverBox.innerHTML = `${coverHTML}${fallbackDiv}`;
-            coverBox.className = `w-12 h-12 rounded-xl overflow-hidden relative shadow-lg shadow-black/50 border border-white/10 ${novel.iconBg || window.getColorClass(novel.title)}`;
-            lucide.createIcons();
-        };
-
-        window.openCurrentlyReading = function() {
-            if(window.appState.lastRead && window.appState.novels[window.appState.lastRead]) {
-                window.openDetails(window.appState.lastRead);
-            }
-        };
-
-        // ================= ADD / DELETE =================
+        // ================= ADD / DELETE MODALS =================
         window.openAddModal = function() {
             document.getElementById('add-modal').classList.remove('hidden');
             requestAnimationFrame(() => document.getElementById('add-modal').classList.add('modal-enter'));
             window.selectAddTab('recent'); 
         };
-        
         window.closeAddModal = function() {
             document.getElementById('add-modal').classList.remove('modal-enter');
             setTimeout(() => document.getElementById('add-modal').classList.add('hidden'), 200);
-            document.getElementById('add-title').value = '';
-            document.getElementById('add-tot').value = '';
-            document.getElementById('add-cur').value = '';
-            document.getElementById('add-cover').value = '';
+            document.getElementById('add-title').value = ''; document.getElementById('add-tot').value = ''; document.getElementById('add-cur').value = ''; document.getElementById('add-cover').value = '';
         };
-        
         window.selectAddTab = function(tab) {
             window.addTabSelection = tab;
-            const tabs = ['recent', 'bookmark', 'completed', 'dropped'];
-            tabs.forEach(t => {
-                const btn = document.getElementById(`sel-${t}`);
-                if (t === tab) {
-                    btn.className = "py-2.5 text-xs font-bold rounded-xl bg-[#ff1b6b] text-white shadow-[0_2px_10px_rgba(255,27,107,0.3)] transition-all uppercase tracking-wide";
-                } else {
-                    btn.className = "py-2.5 text-xs font-bold rounded-xl bg-black/40 border border-white/10 text-gray-400 hover:text-white transition-all uppercase tracking-wide";
-                }
+            ['recent', 'bookmark', 'completed', 'dropped'].forEach(t => {
+                document.getElementById(`sel-${t}`).className = t === tab ? "py-2.5 text-xs font-bold rounded-xl bg-[#ff1b6b] text-white shadow-[0_2px_10px_rgba(255,27,107,0.3)] transition-all uppercase tracking-wide" : "py-2.5 text-xs font-bold rounded-xl bg-black/40 border border-white/10 text-gray-400 hover:text-white transition-all uppercase tracking-wide";
             });
         };
-
         window.submitAddNovel = function() {
             const title = document.getElementById('add-title').value.trim();
             if(!title) return window.showToast("Title is required!");
-            
             const id = window.getNovelId(title);
-            const tot = parseInt(document.getElementById('add-tot').value, 10) || 0;
-            const cur = parseInt(document.getElementById('add-cur').value, 10) || 0;
-            let cover = document.getElementById('add-cover').value.trim();
-
             const existing = window.appState.novels[id];
+            const cur = parseInt(document.getElementById('add-cur').value, 10) || 0;
             window.appState.novels[id] = {
-                id: id, title: title, tot: tot, cur: cur, cover: cover, status: window.addTabSelection,
-                iconBg: existing ? existing.iconBg : window.getColorClass(title),
-                history: existing ? existing.history : (cur > 0 ? [{ ch: cur, date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric'}) }] : [])
+                id: id, title: title, tot: parseInt(document.getElementById('add-tot').value, 10) || 0, cur: cur, cover: document.getElementById('add-cover').value.trim(), status: window.addTabSelection,
+                iconBg: existing ? existing.iconBg : window.getColorClass(title), history: existing ? existing.history : (cur > 0 ? [{ ch: cur, date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric'}) }] : [])
             };
-
-            window.saveToCloud();
-            window.closeAddModal();
-            window.switchTab(window.addTabSelection);
-            window.showToast("Novel Added");
+            window.saveToCloud(); window.closeAddModal(); window.switchTab(window.addTabSelection); window.showToast("Novel Added");
         };
 
         let pendingDeleteId = null;
         window.promptDeleteCurrent = function() {
             if(!window.currentlyEditingId) return;
             pendingDeleteId = window.currentlyEditingId;
-            const novel = window.appState.novels[pendingDeleteId];
-            
-            document.getElementById('del-modal-title').innerText = `"${novel.title}"`;
-            document.getElementById('delete-modal').classList.remove('hidden');
-            requestAnimationFrame(() => document.getElementById('delete-modal').classList.add('modal-enter'));
+            document.getElementById('del-modal-title').innerText = `"${window.appState.novels[pendingDeleteId].title}"`;
+            document.getElementById('delete-modal').classList.remove('hidden'); requestAnimationFrame(() => document.getElementById('delete-modal').classList.add('modal-enter'));
         };
-
         window.promptDelete = function(id, e) {
-            if(e) e.stopPropagation();
-            pendingDeleteId = id;
-            const novel = window.appState.novels[id];
-            
-            document.getElementById('del-modal-title').innerText = `"${novel.title}"`;
-            document.getElementById('delete-modal').classList.remove('hidden');
-            requestAnimationFrame(() => document.getElementById('delete-modal').classList.add('modal-enter'));
+            if(e) e.stopPropagation(); pendingDeleteId = id;
+            document.getElementById('del-modal-title').innerText = `"${window.appState.novels[id].title}"`;
+            document.getElementById('delete-modal').classList.remove('hidden'); requestAnimationFrame(() => document.getElementById('delete-modal').classList.add('modal-enter'));
         };
-
         window.closeDeleteModal = function() {
-            document.getElementById('delete-modal').classList.remove('modal-enter');
-            setTimeout(() => document.getElementById('delete-modal').classList.add('hidden'), 200);
-            pendingDeleteId = null;
+            document.getElementById('delete-modal').classList.remove('modal-enter'); setTimeout(() => document.getElementById('delete-modal').classList.add('hidden'), 200); pendingDeleteId = null;
         };
-
         document.getElementById('confirm-del-btn').addEventListener('click', () => {
             if(pendingDeleteId && window.appState.novels[pendingDeleteId]) {
                 delete window.appState.novels[pendingDeleteId];
                 if(window.appState.lastRead === pendingDeleteId) window.appState.lastRead = "";
-                
-                window.saveToCloud();
-                window.closeDeleteModal();
-                window.closeDetails();
-                window.updateUI();
-                window.showToast("Removed from Library");
+                window.saveToCloud(); window.closeDeleteModal(); window.closeDetails(); window.updateUI(); window.showToast("Removed from Library");
             }
         });
+
+        // ================= BOTTOM PLAYER =================
+        window.updateCurrentlyReadingBar = function() {
+            const bar = document.getElementById('cr-bar-container');
+            const novel = window.appState.novels[window.appState.lastRead];
+            if (!novel) { bar.classList.add('hidden'); return; }
+            bar.classList.remove('hidden');
+            document.getElementById('cr-title').innerText = novel.title; document.getElementById('cr-status').innerText = `Ch ${novel.cur} • Resume`;
+            const coverBox = document.getElementById('cr-cover-box');
+            const fallbackDiv = `<div style="display:${novel.cover ? 'none' : 'flex'}" class="absolute inset-0 items-center justify-center font-black text-xs text-white/50 tracking-widest bg-gradient-to-br from-white/10 to-transparent">${window.getInitials(novel.title)}</div>`;
+            const coverHTML = novel.cover ? `<img src="${novel.cover}" class="absolute inset-0 w-full h-full object-cover z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : "";
+            coverBox.innerHTML = `${coverHTML}${fallbackDiv}`; coverBox.className = `w-12 h-12 rounded-xl overflow-hidden relative shadow-lg shadow-black/50 border border-white/10 ${novel.iconBg || window.getColorClass(novel.title)}`;
+            window.refreshIcons();
+        };
+        window.openCurrentlyReading = function() { if(window.appState.lastRead && window.appState.novels[window.appState.lastRead]) window.openDetails(window.appState.lastRead); };
 
         // ================= UTILS & EVENTS =================
         document.getElementById('search-input').addEventListener('input', (e) => {
-            const clearBtn = document.getElementById('clear-search');
-            e.target.value ? clearBtn.classList.remove('hidden') : clearBtn.classList.add('hidden');
-            window.updateUI();
+            const clearBtn = document.getElementById('clear-search'); e.target.value ? clearBtn.classList.remove('hidden') : clearBtn.classList.add('hidden'); window.updateUI();
         });
-        window.clearSearch = function() {
-            document.getElementById('search-input').value = '';
-            document.getElementById('clear-search').classList.add('hidden');
-            window.updateUI();
-        };
-
+        window.clearSearch = function() { document.getElementById('search-input').value = ''; document.getElementById('clear-search').classList.add('hidden'); window.updateUI(); };
         document.getElementById('details-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') window.saveProgress(); });
 
-        // ================= GEMINI AI COMPANION =================
-        const apiKey = ""; 
-
-        async function fetchWithBackoff(url, options, maxRetries = 5) {
-            const delays = [1000, 2000, 4000, 8000, 16000];
-            for (let i = 0; i < maxRetries; i++) {
-                try {
-                    const response = await fetch(url, options);
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return await response.json();
-                } catch (error) {
-                    if (i === maxRetries - 1) throw error;
-                    await new Promise(res => setTimeout(res, delays[i]));
-                }
-            }
-        }
-
-        async function callGemini(prompt) {
-            if(!apiKey) return "API Key missing! The Oracle is asleep.";
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: { parts: [{ text: "You are a webnovel assistant. Keep answers brief, formatted simply, and focused on the requested webnovel." }] }
-            };
-            try {
-                const result = await fetchWithBackoff(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                return result.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
-            } catch (error) {
-                console.error("Gemini API Error:", error);
-                return "The Oracle's connection failed. Please try again later.";
-            }
-        }
-
-        window.recommendSimilar = async function() {
-            if (!window.currentlyEditingId) return;
-            const novel = window.appState.novels[window.currentlyEditingId];
-            const aiBox = document.getElementById('ai-response-box');
-            
-            aiBox.classList.remove('hidden');
-            aiBox.innerHTML = `<div class="flex items-center justify-center py-4 gap-2 text-indigo-400 font-semibold"><i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Consulting the Archive...</div>`;
-            lucide.createIcons();
-
-            const prompt = `I am currently reading the webnovel "${novel.title}". Recommend 3 similar webnovels I might enjoy. Briefly state why each is similar. Keep it concise.`;
-            const responseText = await callGemini(prompt);
-            
-            aiBox.innerHTML = `
-                <div class="text-indigo-300 mb-2 font-bold flex items-center gap-1"><i data-lucide="sparkles" class="w-4 h-4 inline"></i> Recommendations</div>
-                <div id="ai-text-content" class="whitespace-pre-wrap text-sm text-gray-300 mt-2 border-t border-white/10 pt-2"></div>
-            `;
-            document.getElementById('ai-text-content').textContent = responseText;
-            lucide.createIcons();
-        };
-
-        window.summarizePremise = async function() {
-            if (!window.currentlyEditingId) return;
-            const novel = window.appState.novels[window.currentlyEditingId];
-            const aiBox = document.getElementById('ai-response-box');
-            
-            aiBox.classList.remove('hidden');
-            aiBox.innerHTML = `<div class="flex items-center justify-center py-4 gap-2 text-purple-400 font-semibold"><i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Deciphering Lore...</div>`;
-            lucide.createIcons();
-
-            const prompt = `Provide a brief, engaging 2-paragraph premise summary of the webnovel "${novel.title}". No major spoilers.`;
-            const responseText = await callGemini(prompt);
-            
-            aiBox.innerHTML = `
-                <div class="text-purple-300 mb-2 font-bold flex items-center gap-1"><i data-lucide="sparkles" class="w-4 h-4 inline"></i> Story Premise</div>
-                <div id="ai-text-content" class="whitespace-pre-wrap text-sm text-gray-300 mt-2 border-t border-white/10 pt-2"></div>
-            `;
-            document.getElementById('ai-text-content').textContent = responseText;
-            lucide.createIcons();
-        };
-
-        // ================= FULL DATA DEFAULT MIGRATION =================
+        // ================= EXACT BOOKMARK MAPPING =================
         window.loadDefaultLibrary = function() {
+            window.appState = { novels: {}, lastRead: "" };
+            const bookmarkTitles = new Set([
+                "Cultivation: When you take things to the extreme", "The Experimental Log of the Crazy Lich", "I Became the Tyrant of a Defense Game", "Eternal Villain: I can enslave Reality!", "A Journey of Black and Red", "Absolute Sword Sense", "Worlds' Apocalypse Online", "Tales Of The World Devouring Serpent", "The Beginning After The End", "Two Realms Shuttle Gate: Don't Call Me a Demon!", "THE VILLAIN'S POV", "Let Me Game in Peace", "Way of the Devil", "Diary of a Dead Wizard", "Law of the Devil", "Seeking Immortality In The World Of Cultivation", "The Perfect Run", "Coming of the Villain Boss!", "Mountain Sitting Immortal", "Reincarnation Paradise", "The Demonic Cultivator In Zombie World", "The Mirror Legacy", "Do Your Own Revolution", "The Girl Who Ate a Death God", "My Divine Diary", "My Senior Brother is Too Steady", "Eight Treasures Trousseau", "The Villain Wants to Live", "Myriad Realms Gatekeeper", "The Legend of William Oh", "Lord of Glory", "I Shall Be Everlasting In the World of Immortals", "The Forbidden Path to Immortality", "Quick Transmigration Cannon Fodder's Record of Counterattacks", "A Regressor's Tale of Cultivation", "Book Of The Dead", "The Lone Wanderer", "Nightmare Assault", "This Bastard is Too Competent", "A Bored Lich", "Beware Of Chicken", "Ouroboros Record ~Circus of Oubeniel~", "The Primordial Record", "Five Frozen Centuries", "Kingdom's Bloodline", "The Innkeeper", "Shadow Slave", "Cultivation is Creation", "Mysterious Awakening", "Sword God in a World of Magic", "Trafford's Trading Club", "Card Room", "Doomsday Wonderland", "Lord of Mysteries 2: Circle of Inevitability", "A Practical Guide to Evil", "City of Sin", "Mysteries of Immortal Puppet Master", "Yuan's Ascension"
+            ]);
+
             const seedData = [
-                // Restored full library with images
-                { title: "Renegade Immortal", cur: 695, tot: 0, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2016/05/Renegade-Immortal.jpg" },
-                { title: "Cultivation: When you take things to the extreme", cur: 366, tot: 1222, status: "recent" },
-                { title: "The Experimental Log of the Crazy Lich", cur: 5, tot: 841, status: "bookmark" },
-                { title: "I Became the Tyrant of a Defense Game", cur: 419, tot: 1666, status: "recent" },
-                { title: "Eternal Villain: I can enslave Reality!", cur: 241, tot: 241, status: "completed" },
-                { title: "A Journey of Black and Red", cur: 11, tot: 469, status: "recent", cover: "https://wsrv.nl/?url=m.media-amazon.com/images/I/71X-s98H+KL._AC_UF1000,1000_QL80_.jpg" },
-                { title: "Absolute Sword Sense", cur: 260, tot: 356, status: "recent" },
-                { title: "Worlds' Apocalypse Online", cur: 1, tot: 1822, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/04/Worlds-Apocalypse-Online.jpg" },
-                { title: "Tales Of The World Devouring Serpent", cur: 6, tot: 736, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/08/Tales-of-the-World-Devouring-Serpent.jpg" },
-                { title: "The Beginning After The End", cur: 400, tot: 521, status: "bookmark" },
-                { title: "Two Realms Shuttle Gate: Don't Call Me a Demon!", cur: 625, tot: 1387, status: "recent" },
-                { title: "THE VILLAIN'S POV", cur: 4, tot: 687, status: "recent" },
-                { title: "Let Me Game in Peace", cur: 1403, tot: 1905, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2020/06/Let-Me-Game-in-Peace.jpg" },
-                { title: "Way of the Devil", cur: 772, tot: 772, status: "completed", cover: "https://wsrv.nl/?url=images.novelupdates.com/2018/02/Way-of-the-Devil.jpg" },
-                { title: "Diary of a Dead Wizard", cur: 216, tot: 1037, status: "recent" },
-                { title: "Law of the Devil", cur: 510, tot: 732, status: "recent" },
-                { title: "Seeking Immortality In The World Of Cultivation", cur: 1084, tot: 1461, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2023/02/Seeking-Immortality-In-The-World-Of-Cultivation.jpg" },
-                { title: "The Perfect Run", cur: 69, tot: 130, status: "recent", cover: "https://wsrv.nl/?url=m.media-amazon.com/images/I/81xU+A2fS3L._AC_UF1000,1000_QL80_.jpg" },
-                { title: "Coming of the Villain Boss!", cur: 1310, tot: 1431, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/03/Coming-of-the-Villain-Boss.jpg" },
-                { title: "Mountain Sitting Immortal", cur: 647, tot: 700, status: "recent" },
-                { title: "Reincarnation Paradise", cur: 224, tot: 957, status: "recent" },
-                { title: "The Demonic Cultivator In Zombie World", cur: 452, tot: 465, status: "recent" },
-                { title: "The Mirror Legacy", cur: 306, tot: 712, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2021/08/The-Mirror-Legacy.jpg" },
-                { title: "Do Your Own Revolution", cur: 28, tot: 201, status: "recent" },
-                { title: "The Girl Who Ate a Death God", cur: 1, tot: 38, status: "recent" },
-                { title: "My Divine Diary", cur: 664, tot: 997, status: "recent" },
-                { title: "My Senior Brother is Too Steady", cur: 75, tot: 765, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2020/04/My-Senior-Brother-is-Too-Steady.jpg" },
-                { title: "Eight Treasures Trousseau", cur: 5, tot: 108, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2016/09/Eight-Treasures-Trousseau.jpg" },
-                { title: "The Villain Wants to Live", cur: 61, tot: 362, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2021/04/The-Villain-Wants-to-Live.jpg" },
-                { title: "Myriad Realms Gatekeeper", cur: 221, tot: 1648, status: "recent" },
-                { title: "The Legend of William Oh", cur: 5, tot: 215, status: "recent" },
-                { title: "Lord of Glory", cur: 289, tot: 300, status: "recent" },
-                { title: "I Shall Be Everlasting In the World of Immortals", cur: 470, tot: 476, status: "recent" },
-                { title: "The Forbidden Path to Immortality", cur: 24, tot: 245, status: "recent" },
-                { title: "Quick Transmigration Cannon Fodder's Record of Counterattacks", cur: 3283, tot: 3283, status: "completed", cover: "https://wsrv.nl/?url=images.novelupdates.com/2017/10/Quick-Transmigration-Cannon-Fodders-Record-of-Counterattacks.jpg" },
-                { title: "A Regressor's Tale of Cultivation", cur: 429, tot: 803, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2023/11/A-Regressors-Tale-of-Cultivation.jpg" },
-                { title: "Book Of The Dead", cur: 71, tot: 285, status: "recent" },
-                { title: "The Lone Wanderer", cur: 447, tot: 454, status: "recent" },
-                { title: "Nightmare Assault", cur: 163, tot: 464, status: "recent" },
-                { title: "This Bastard is Too Competent", cur: 53, tot: 359, status: "recent" },
-                { title: "A Bored Lich", cur: 24, tot: 467, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/12/A-Bored-Lich.jpg" },
-                { title: "Beware Of Chicken", cur: 96, tot: 499, status: "bookmark", cover: "https://wsrv.nl/?url=m.media-amazon.com/images/I/81RkVQZ25+L._AC_UF1000,1000_QL80_.jpg" },
-                { title: "Ouroboros Record ~Circus of Oubeniel~", cur: 97, tot: 256, status: "recent" },
-                { title: "The Primordial Record", cur: 2058, tot: 1940, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2020/08/The-Primordial-Record.jpg" },
-                { title: "Five Frozen Centuries", cur: 141, tot: 434, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2022/10/Five-Frozen-Centuries.jpg" },
-                { title: "Kingdom's Bloodline", cur: 53, tot: 580, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/02/Kingdoms-Bloodline.jpg" },
-                { title: "The Innkeeper", cur: 2151, tot: 1986, status: "recent" },
-                { title: "Shadow Slave", cur: 2738, tot: 2374, status: "recent" },
-                { title: "Cultivation is Creation", cur: 528, tot: 411, status: "recent" },
-                { title: "Mysterious Awakening", cur: 82, tot: 1576, status: "recent" },
-                { title: "Sword God in a World of Magic", cur: 38, tot: 1033, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2021/06/Sword-God-in-a-World-of-Magic.jpg" },
-                { title: "Trafford's Trading Club", cur: 210, tot: 951, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2017/08/Traffords-Trading-Club.jpg" },
-                { title: "Card Room", cur: 13, tot: 477, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/07/Card-Room.jpg" },
-                { title: "Doomsday Wonderland", cur: 324, tot: 1636, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2017/09/Doomsday-Wonderland.jpg" },
-                { title: "Lord of Mysteries 2: Circle of Inevitability", cur: 391, tot: 1180, status: "bookmark", cover: "https://wsrv.nl/?url=images.novelupdates.com/2023/03/Lord-of-Mysteries-2-Circle-of-Inevitability.jpg" },
-                { title: "A Practical Guide to Evil", cur: 124, tot: 628, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2018/06/A-Practical-Guide-to-Evil.jpg" },
-                { title: "Eternal Tale", cur: 386, tot: 578, status: "recent" },
-                { title: "The Mech Touch", cur: 1340, tot: 12321, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2018/12/The-Mech-Touch.jpg" },
-                { title: "Star Odyssey", cur: 6211, tot: 6273, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2020/07/Star-Odyssey.jpg" },
-                { title: "Got Dropped into a Ghost Story, Still Gotta Work", cur: 34, tot: 652, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2023/10/Got-Dropped-into-a-Ghost-Story-Still-Gotta-Work.jpg" },
-                { title: "Global Game: AFK In The Zombie Apocalypse Game", cur: 1897, tot: 2871, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2021/11/Global-Game-AFK-In-The-Zombie-Apocalypse-Game.jpg" },
-                { title: "My House of Horrors", cur: 1, tot: 1211, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2018/12/My-House-of-Horrors.jpg" },
-                { title: "Gourmet Food Supplier", cur: 410, tot: 2734, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2017/08/Gourmet-Food-Supplier.jpg" },
-                { title: "Yuan's Ascension", cur: 600, tot: 1369, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2020/12/Yuans-Ascension.jpg" },
-                { title: "City of Sin", cur: 596, tot: 1419, status: "recent", cover: "https://wsrv.nl/?url=images.novelupdates.com/2017/09/City-of-Sin.jpg" },
-                { title: "Mysteries of Immortal Puppet Master", cur: 1310, tot: 1343, status: "recent" },
-                { title: "Deep Sea Embers", cur: 1543, tot: 1635, status: "recent" },
-                { title: "Advent of the Three Calamities", cur: 2, tot: 813, status: "recent" },
-                { title: "Who Let Him Cultivate?!", cur: 17, tot: 1364, status: "recent" },
-                { title: "Infinite Awakening: My Exp Doubles Everyday", cur: 38, tot: 479, status: "recent" },
-                { title: "Wizard: Unlimited Profession Slots", cur: 1, tot: 431, status: "recent" },
-                { title: "Unintended Immortality", cur: 9, tot: 720, status: "recent" },
-                { title: "I'm an Infinite Regressor, But I've Got Stories to Tell", cur: 8, tot: 512, status: "recent" },
-                { title: "I Survive Through Proficiency to Longevity", cur: 2, tot: 581, status: "recent" },
-                { title: "I.. Am God?", cur: 15, tot: 264, status: "recent" },
-                { title: "Cannon Fodder Cheat System", cur: 3, tot: 228, status: "recent" },
-                { title: "Sorcerer's Handbook", cur: 553, tot: 777, status: "recent" },
-                { title: "The Prodigies War", cur: 1, tot: 2701, status: "recent" },
-                { title: "Lost Destination", cur: 1, tot: 84, status: "recent" },
-                { title: "Everyone Else is a Returnee", cur: 76, tot: 355, status: "recent" },
-                { title: "I am the Monarch", cur: 27, tot: 336, status: "recent" },
-                { title: "Kaleidoscope of Death", cur: 1, tot: 145, status: "recent" },
-                { title: "Steel and Sorrow: Rise of the Mercenary king", cur: 218, tot: 886, status: "recent" },
-                { title: "I'm the Mysterious Leader of the Salvation Organization", cur: 1, tot: 1061, status: "recent" },
-                { title: "Deep in the Living", cur: 10, tot: 792, status: "recent" },
-                { title: "Family Cultivation Of Immortality: Starting From The Old Ancestor", cur: 2, tot: 198, status: "recent" },
-                { title: "Global Gods : Skill-Resonance Awakened", cur: 138, tot: 268, status: "recent" },
-                { title: "Realm of Myths and Legends", cur: 2, tot: 1181, status: "recent" },
-                { title: "Nightmare's Call (Summoner of Nightmares)", cur: 648, tot: 923, status: "recent" },
-                { title: "Quick Transmigration Female Lead: Male God, Never Stopping", cur: 31, tot: 3055, status: "recent" },
-                { title: "Side Character Transmigrations: The Final Boss is No Joke", cur: 67, tot: 829, status: "recent" },
-                { title: "Can a Scholar Be Called a Villain", cur: 26, tot: 165, status: "recent" },
-                { title: "Origin Seeker", cur: 19, tot: 306, status: "recent" },
-                { title: "Above the Great Dao", cur: 57, tot: 951, status: "recent" },
-                { title: "The Sage Who Transcended Samsara", cur: 18, tot: 1411, status: "recent" },
-                { title: "The Original Seeker", cur: 13, tot: 883, status: "recent" },
-                { title: "Nightmare's Call", cur: 573, tot: 586, status: "recent" },
-                { title: "Astral Apostle", cur: 6, tot: 526, status: "recent" },
-                { title: "A Cliché Multiverse story", cur: 7, tot: 476, status: "recent" },
-                { title: "Paragon of Death", cur: 2, tot: 325, status: "recent" },
-                { title: "Paragon of Destruction", cur: 1, tot: 419, status: "recent" },
-                { title: "Cultivating Immortality Starting From Zhao Prison", cur: 1, tot: 557, status: "recent" },
-                { title: "The Villain's Story", cur: 6, tot: 1156, status: "recent" },
-                { title: "Interstellar: Return of the Villain", cur: 10, tot: 21, status: "recent" },
-                { title: "She is a Sword Cultivator", cur: 6, tot: 1368, status: "recent" },
-                { title: "Handbook for Survival in a Strange World", cur: 2, tot: 683, status: "recent" },
-                { title: "Starting From The Planetary Governor", cur: 107, tot: 1858, status: "recent" },
-                { title: "The Law Of Saving Love Brain", cur: 4, tot: 56, status: "recent" },
-                { title: "The Law Of Extreme Evil", cur: 1, tot: 52, status: "recent" },
-                { title: "Plan for Dimensional Development", cur: 2, tot: 2161, status: "recent" },
-                { title: "The Forbidden Path Across the Starry Sky", cur: 1, tot: 490, status: "recent" },
-                { title: "Lurking in the Godly World for Longevity", cur: 2, tot: 877, status: "recent" },
-                { title: "The Reversal System: Only for the Elite at the Mahayana Stage", cur: 17, tot: 80, status: "recent" },
-                { title: "SCP Life Diary of a D-class Personnel", cur: 1, tot: 231, status: "recent" },
-                { title: "Mirror Multiverse", cur: 5, tot: 275, status: "recent" },
-                { title: "A Soldier's Life", cur: 40, tot: 341, status: "recent" },
-                { title: "I Persuade People With Reason", cur: 58, tot: 303, status: "recent" },
-                { title: "Blackstone Code", cur: 46, tot: 591, status: "recent" },
-                { title: "The Scum Villain's Self-Saving System", cur: 6, tot: 99, status: "recent" },
-                { title: "Fantasy World Transmigration", cur: 1, tot: 1406, status: "recent" },
-                { title: "Devouring The Ancient Emperor", cur: 1, tot: 5086, status: "recent" },
-                { title: "Seeking immortality in a deceitful way starts by making oneself into a puppet", cur: 5, tot: 1066, status: "recent" },
-                { title: "The Puppeteer of Academy City", cur: 1, tot: 978, status: "recent" },
-                { title: "Re: Blood and Iron", cur: 1, tot: 1047, status: "recent" },
-                { title: "The Golem Mage", cur: 59, tot: 567, status: "recent" },
-                { title: "Kill the Sun", cur: 993, tot: 994, status: "recent" },
-                { title: "Unsheathed", cur: 54, tot: 1107, status: "recent" },
-                { title: "Birth of the Demonic Sword", cur: 1727, tot: 2364, status: "recent" },
-                { title: "Embers Ad Infinitum", cur: 518, tot: 1579, status: "recent" },
-                { title: "Top Tier Providence, Secretly Cultivate for a Thousand Years", cur: 398, tot: 1190, status: "recent" },
-                { title: "A New Start : Quick Transmigration", cur: 61, tot: 214, status: "recent" },
-                { title: "I Made Beast-taming Widespread Across The Globe", cur: 325, tot: 1841, status: "recent" },
-                { title: "Destroying My Own Novel", cur: 1, tot: 562, status: "dropped" },
-                { title: "The days when I wanted to be a human being", cur: 1, tot: 220, status: "dropped" },
-                { title: "Crossing All Worlds: Divine Arts Automatically Maxed Out", cur: 1, tot: 1902, status: "recent" },
-                { title: "Can't Afford the Bride Price, So I Had to Marry the Demon Sect Saintess", cur: 1, tot: 864, status: "recent" },
-                { title: "Sky Pride", cur: 2, tot: 41, status: "recent" },
-                { title: "Protect Our Patriarch", cur: 19, tot: 628, status: "recent" },
-                { title: "Rebirth of the Nameless Immortal God", cur: 242, tot: 0, status: "recent" },
-                { title: "The Path of the Sect Leader Immortal", cur: 1, tot: 0, status: "recent" },
-                { title: "I AM THE SWARM", cur: 583, tot: 0, status: "recent" },
-                { title: "Insect Tamer's Ascension", cur: 10, tot: 250, status: "recent" },
-                { title: "Reincarnated as a Divine Tree", cur: 366, tot: 375, status: "recent" },
-                { title: "Reborn as a Demonic Tree", cur: 309, tot: 525, status: "recent" },
-                { title: "Omnipotent Sage", cur: 1, tot: 0, status: "recent" },
-                { title: "Strongest Warlock - Wizard World Irregular", cur: 11, tot: 1133, status: "recent" },
-                { title: "God-Tier Fishing System", cur: 669, tot: 407, status: "recent" },
-                { title: "Path to Transcendence", cur: 139, tot: 519, status: "recent" },
-                { title: "Becoming a Saint by Touching Corpses", cur: 350, tot: 266, status: "recent" },
-                { title: "Super System Plundering the Heaven", cur: 1, tot: 0, status: "recent" },
-                { title: "Creating Heavenly Laws", cur: 7, tot: 734, status: "recent" },
-                { title: "Novel from novelfull.net", cur: 786, tot: 0, status: "recent" },
-                { title: "Lord of the Truth", cur: 163, tot: 2030, status: "recent" }
+                { title: "Renegade Immortal", cur: 695, tot: 0, cover: "https://wsrv.nl/?url=images.novelupdates.com/2016/05/Renegade-Immortal.jpg" },
+                { title: "Cultivation: When you take things to the extreme", cur: 366, tot: 1222 },
+                { title: "The Experimental Log of the Crazy Lich", cur: 5, tot: 841 },
+                { title: "I Became the Tyrant of a Defense Game", cur: 419, tot: 1666 },
+                { title: "Eternal Villain: I can enslave Reality!", cur: 241, tot: 241 },
+                { title: "A Journey of Black and Red", cur: 11, tot: 469, cover: "https://wsrv.nl/?url=m.media-amazon.com/images/I/71X-s98H+KL._AC_UF1000,1000_QL80_.jpg" },
+                { title: "Absolute Sword Sense", cur: 260, tot: 356 },
+                { title: "Worlds' Apocalypse Online", cur: 1, tot: 1822, cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/04/Worlds-Apocalypse-Online.jpg" },
+                { title: "Tales Of The World Devouring Serpent", cur: 6, tot: 736, cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/08/Tales-of-the-World-Devouring-Serpent.jpg" },
+                { title: "The Beginning After The End", cur: 400, tot: 521 },
+                { title: "Two Realms Shuttle Gate: Don't Call Me a Demon!", cur: 625, tot: 1387 },
+                { title: "THE VILLAIN'S POV", cur: 4, tot: 687 },
+                { title: "Let Me Game in Peace", cur: 1403, tot: 1905, cover: "https://wsrv.nl/?url=images.novelupdates.com/2020/06/Let-Me-Game-in-Peace.jpg" },
+                { title: "Way of the Devil", cur: 772, tot: 772, cover: "https://wsrv.nl/?url=images.novelupdates.com/2018/02/Way-of-the-Devil.jpg" },
+                { title: "Diary of a Dead Wizard", cur: 216, tot: 1037 },
+                { title: "Law of the Devil", cur: 510, tot: 732 },
+                { title: "Seeking Immortality In The World Of Cultivation", cur: 1084, tot: 1461, cover: "https://wsrv.nl/?url=images.novelupdates.com/2023/02/Seeking-Immortality-In-The-World-Of-Cultivation.jpg" },
+                { title: "The Perfect Run", cur: 69, tot: 130, cover: "https://wsrv.nl/?url=m.media-amazon.com/images/I/81xU+A2fS3L._AC_UF1000,1000_QL80_.jpg" },
+                { title: "Coming of the Villain Boss!", cur: 1310, tot: 1431, cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/03/Coming-of-the-Villain-Boss.jpg" },
+                { title: "Mountain Sitting Immortal", cur: 647, tot: 700 },
+                { title: "Reincarnation Paradise", cur: 224, tot: 957 },
+                { title: "The Demonic Cultivator In Zombie World", cur: 452, tot: 465 },
+                { title: "The Mirror Legacy", cur: 306, tot: 712, cover: "https://wsrv.nl/?url=images.novelupdates.com/2021/08/The-Mirror-Legacy.jpg" },
+                { title: "Do Your Own Revolution", cur: 28, tot: 201 },
+                { title: "The Girl Who Ate a Death God", cur: 1, tot: 38 },
+                { title: "My Divine Diary", cur: 664, tot: 997 },
+                { title: "My Senior Brother is Too Steady", cur: 75, tot: 765, cover: "https://wsrv.nl/?url=images.novelupdates.com/2020/04/My-Senior-Brother-is-Too-Steady.jpg" },
+                { title: "Eight Treasures Trousseau", cur: 5, tot: 108, cover: "https://wsrv.nl/?url=images.novelupdates.com/2016/09/Eight-Treasures-Trousseau.jpg" },
+                { title: "The Villain Wants to Live", cur: 61, tot: 362, cover: "https://wsrv.nl/?url=images.novelupdates.com/2021/04/The-Villain-Wants-to-Live.jpg" },
+                { title: "Myriad Realms Gatekeeper", cur: 221, tot: 1648 },
+                { title: "The Legend of William Oh", cur: 5, tot: 215 },
+                { title: "Lord of Glory", cur: 289, tot: 300 },
+                { title: "I Shall Be Everlasting In the World of Immortals", cur: 470, tot: 476 },
+                { title: "The Forbidden Path to Immortality", cur: 24, tot: 245 },
+                { title: "Quick Transmigration Cannon Fodder's Record of Counterattacks", cur: 3283, tot: 3283, cover: "https://wsrv.nl/?url=images.novelupdates.com/2017/10/Quick-Transmigration-Cannon-Fodders-Record-of-Counterattacks.jpg" },
+                { title: "A Regressor's Tale of Cultivation", cur: 429, tot: 803, cover: "https://wsrv.nl/?url=images.novelupdates.com/2023/11/A-Regressors-Tale-of-Cultivation.jpg" },
+                { title: "Book Of The Dead", cur: 71, tot: 285 },
+                { title: "The Lone Wanderer", cur: 447, tot: 454 },
+                { title: "Nightmare Assault", cur: 163, tot: 464 },
+                { title: "This Bastard is Too Competent", cur: 53, tot: 359 },
+                { title: "A Bored Lich", cur: 24, tot: 467, cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/12/A-Bored-Lich.jpg" },
+                { title: "Beware Of Chicken", cur: 96, tot: 499, cover: "https://wsrv.nl/?url=m.media-amazon.com/images/I/81RkVQZ25+L._AC_UF1000,1000_QL80_.jpg" },
+                { title: "Ouroboros Record ~Circus of Oubeniel~", cur: 97, tot: 256 },
+                { title: "The Primordial Record", cur: 2058, tot: 1940, cover: "https://wsrv.nl/?url=images.novelupdates.com/2020/08/The-Primordial-Record.jpg" },
+                { title: "Five Frozen Centuries", cur: 141, tot: 434, cover: "https://wsrv.nl/?url=images.novelupdates.com/2022/10/Five-Frozen-Centuries.jpg" },
+                { title: "Kingdom's Bloodline", cur: 53, tot: 580, cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/02/Kingdoms-Bloodline.jpg" },
+                { title: "The Innkeeper", cur: 2151, tot: 1986 },
+                { title: "Shadow Slave", cur: 2738, tot: 2374 },
+                { title: "Cultivation is Creation", cur: 528, tot: 411 },
+                { title: "Mysterious Awakening", cur: 82, tot: 1576 },
+                { title: "Sword God in a World of Magic", cur: 38, tot: 1033, cover: "https://wsrv.nl/?url=images.novelupdates.com/2021/06/Sword-God-in-a-World-of-Magic.jpg" },
+                { title: "Trafford's Trading Club", cur: 210, tot: 951, cover: "https://wsrv.nl/?url=images.novelupdates.com/2017/08/Traffords-Trading-Club.jpg" },
+                { title: "Card Room", cur: 13, tot: 477, cover: "https://wsrv.nl/?url=images.novelupdates.com/2019/07/Card-Room.jpg" },
+                { title: "Doomsday Wonderland", cur: 324, tot: 1636, cover: "https://wsrv.nl/?url=images.novelupdates.com/2017/09/Doomsday-Wonderland.jpg" },
+                { title: "Lord of Mysteries 2: Circle of Inevitability", cur: 391, tot: 1180, cover: "https://wsrv.nl/?url=images.novelupdates.com/2023/03/Lord-of-Mysteries-2-Circle-of-Inevitability.jpg" },
+                { title: "A Practical Guide to Evil", cur: 124, tot: 628, cover: "https://wsrv.nl/?url=images.novelupdates.com/2018/06/A-Practical-Guide-to-Evil.jpg" },
+                { title: "Eternal Tale", cur: 386, tot: 578 },
+                { title: "The Mech Touch", cur: 1340, tot: 12321, cover: "https://wsrv.nl/?url=images.novelupdates.com/2018/12/The-Mech-Touch.jpg" },
+                { title: "Star Odyssey", cur: 6211, tot: 6273, cover: "https://wsrv.nl/?url=images.novelupdates.com/2020/07/Star-Odyssey.jpg" },
+                { title: "Got Dropped into a Ghost Story, Still Gotta Work", cur: 34, tot: 652, cover: "https://wsrv.nl/?url=images.novelupdates.com/2023/10/Got-Dropped-into-a-Ghost-Story-Still-Gotta-Work.jpg" },
+                { title: "Global Game: AFK In The Zombie Apocalypse Game", cur: 1897, tot: 2871, cover: "https://wsrv.nl/?url=images.novelupdates.com/2021/11/Global-Game-AFK-In-The-Zombie-Apocalypse-Game.jpg" },
+                { title: "My House of Horrors", cur: 1, tot: 1211, cover: "https://wsrv.nl/?url=images.novelupdates.com/2018/12/My-House-of-Horrors.jpg" },
+                { title: "Gourmet Food Supplier", cur: 410, tot: 2734, cover: "https://wsrv.nl/?url=images.novelupdates.com/2017/08/Gourmet-Food-Supplier.jpg" },
+                { title: "Yuan's Ascension", cur: 600, tot: 1369, cover: "https://wsrv.nl/?url=images.novelupdates.com/2020/12/Yuans-Ascension.jpg" },
+                { title: "City of Sin", cur: 596, tot: 1419, cover: "https://wsrv.nl/?url=images.novelupdates.com/2017/09/City-of-Sin.jpg" },
+                { title: "Mysteries of Immortal Puppet Master", cur: 1310, tot: 1343 },
+                { title: "Deep Sea Embers", cur: 1543, tot: 1635 },
+                { title: "Advent of the Three Calamities", cur: 2, tot: 813 },
+                { title: "Who Let Him Cultivate?!", cur: 17, tot: 1364 },
+                { title: "Infinite Awakening: My Exp Doubles Everyday", cur: 38, tot: 479 },
+                { title: "Wizard: Unlimited Profession Slots", cur: 1, tot: 431 },
+                { title: "Unintended Immortality", cur: 9, tot: 720 },
+                { title: "I'm an Infinite Regressor, But I've Got Stories to Tell", cur: 8, tot: 512 },
+                { title: "I Survive Through Proficiency to Longevity", cur: 2, tot: 581 },
+                { title: "I.. Am God?", cur: 15, tot: 264 },
+                { title: "Cannon Fodder Cheat System", cur: 3, tot: 228 },
+                { title: "Sorcerer's Handbook", cur: 553, tot: 777 },
+                { title: "The Prodigies War", cur: 1, tot: 2701 },
+                { title: "Lost Destination", cur: 1, tot: 84 },
+                { title: "Everyone Else is a Returnee", cur: 76, tot: 355 },
+                { title: "I am the Monarch", cur: 27, tot: 336 },
+                { title: "Kaleidoscope of Death", cur: 1, tot: 145 },
+                { title: "Steel and Sorrow: Rise of the Mercenary king", cur: 218, tot: 886 },
+                { title: "I'm the Mysterious Leader of the Salvation Organization", cur: 1, tot: 1061 },
+                { title: "Deep in the Living", cur: 10, tot: 792 },
+                { title: "Family Cultivation Of Immortality: Starting From The Old Ancestor", cur: 2, tot: 198 },
+                { title: "Global Gods : Skill-Resonance Awakened", cur: 138, tot: 268 },
+                { title: "Realm of Myths and Legends", cur: 2, tot: 1181 },
+                { title: "Nightmare's Call (Summoner of Nightmares)", cur: 648, tot: 923 },
+                { title: "Quick Transmigration Female Lead: Male God, Never Stopping", cur: 31, tot: 3055 },
+                { title: "Side Character Transmigrations: The Final Boss is No Joke", cur: 67, tot: 829 },
+                { title: "Can a Scholar Be Called a Villain", cur: 26, tot: 165 },
+                { title: "Origin Seeker", cur: 19, tot: 306 },
+                { title: "Above the Great Dao", cur: 57, tot: 951 },
+                { title: "The Sage Who Transcended Samsara", cur: 18, tot: 1411 },
+                { title: "The Original Seeker", cur: 13, tot: 883 },
+                { title: "Nightmare's Call", cur: 573, tot: 586 },
+                { title: "Astral Apostle", cur: 6, tot: 526 },
+                { title: "A Cliché Multiverse story", cur: 7, tot: 476 },
+                { title: "Paragon of Death", cur: 2, tot: 325 },
+                { title: "Paragon of Destruction", cur: 1, tot: 419 },
+                { title: "Cultivating Immortality Starting From Zhao Prison", cur: 1, tot: 557 },
+                { title: "The Villain's Story", cur: 6, tot: 1156 },
+                { title: "Interstellar: Return of the Villain", cur: 10, tot: 21 },
+                { title: "She is a Sword Cultivator", cur: 6, tot: 1368 },
+                { title: "Handbook for Survival in a Strange World", cur: 2, tot: 683 },
+                { title: "Starting From The Planetary Governor", cur: 107, tot: 1858 },
+                { title: "The Law Of Saving Love Brain", cur: 4, tot: 56 },
+                { title: "The Law Of Extreme Evil", cur: 1, tot: 52 },
+                { title: "Plan for Dimensional Development", cur: 2, tot: 2161 },
+                { title: "The Forbidden Path Across the Starry Sky", cur: 1, tot: 490 },
+                { title: "Lurking in the Godly World for Longevity", cur: 2, tot: 877 },
+                { title: "The Reversal System: Only for the Elite at the Mahayana Stage", cur: 17, tot: 80 },
+                { title: "SCP Life Diary of a D-class Personnel", cur: 1, tot: 231 },
+                { title: "Mirror Multiverse", cur: 5, tot: 275 },
+                { title: "A Soldier's Life", cur: 40, tot: 341 },
+                { title: "I Persuade People With Reason", cur: 58, tot: 303 },
+                { title: "Blackstone Code", cur: 46, tot: 591 },
+                { title: "The Scum Villain's Self-Saving System", cur: 6, tot: 99 },
+                { title: "Fantasy World Transmigration", cur: 1, tot: 1406 },
+                { title: "Devouring The Ancient Emperor", cur: 1, tot: 5086 },
+                { title: "Seeking immortality in a deceitful way starts by making oneself into a puppet", cur: 5, tot: 1066 },
+                { title: "The Puppeteer of Academy City", cur: 1, tot: 978 },
+                { title: "Re: Blood and Iron", cur: 1, tot: 1047 },
+                { title: "The Golem Mage", cur: 59, tot: 567 },
+                { title: "Kill the Sun", cur: 993, tot: 994 },
+                { title: "Unsheathed", cur: 54, tot: 1107 },
+                { title: "Birth of the Demonic Sword", cur: 1727, tot: 2364 },
+                { title: "Embers Ad Infinitum", cur: 518, tot: 1579 },
+                { title: "Top Tier Providence, Secretly Cultivate for a Thousand Years", cur: 398, tot: 1190 },
+                { title: "A New Start : Quick Transmigration", cur: 61, tot: 214 },
+                { title: "I Made Beast-taming Widespread Across The Globe", cur: 325, tot: 1841 },
+                { title: "Destroying My Own Novel", cur: 1, tot: 562 },
+                { title: "The days when I wanted to be a human being", cur: 1, tot: 220 },
+                { title: "Crossing All Worlds: Divine Arts Automatically Maxed Out", cur: 1, tot: 1902 },
+                { title: "Can't Afford the Bride Price, So I Had to Marry the Demon Sect Saintess", cur: 1, tot: 864 },
+                { title: "Sky Pride", cur: 2, tot: 41 },
+                { title: "Protect Our Patriarch", cur: 19, tot: 628 },
+                { title: "Rebirth of the Nameless Immortal God", cur: 242, tot: 0 },
+                { title: "The Path of the Sect Leader Immortal", cur: 1, tot: 0 },
+                { title: "I AM THE SWARM", cur: 583, tot: 0 },
+                { title: "Insect Tamer's Ascension", cur: 10, tot: 250 },
+                { title: "Reincarnated as a Divine Tree", cur: 366, tot: 375 },
+                { title: "Reborn as a Demonic Tree", cur: 309, tot: 525 },
+                { title: "Omnipotent Sage", cur: 1, tot: 0 },
+                { title: "Strongest Warlock - Wizard World Irregular", cur: 11, tot: 1133 },
+                { title: "God-Tier Fishing System", cur: 669, tot: 407 },
+                { title: "Path to Transcendence", cur: 139, tot: 519 },
+                { title: "Becoming a Saint by Touching Corpses", cur: 350, tot: 266 },
+                { title: "Super System Plundering the Heaven", cur: 1, tot: 0 },
+                { title: "Creating Heavenly Laws", cur: 7, tot: 734 },
+                { title: "Novel from novelfull.net", cur: 786, tot: 0 },
+                { title: "Lord of the Truth", cur: 163, tot: 2030 }
             ];
             
             seedData.forEach(n => {
                 const id = window.getNovelId(n.title);
+                const assignedStatus = bookmarkTitles.has(n.title) ? "bookmark" : "recent";
                 window.appState.novels[id] = { 
                     id: id, title: n.title, cur: n.cur, tot: n.tot, 
-                    cover: n.cover || "", status: n.status || 'recent', 
+                    cover: n.cover || "", status: assignedStatus, 
                     iconBg: window.getColorClass(n.title), history: [] 
                 };
             });
